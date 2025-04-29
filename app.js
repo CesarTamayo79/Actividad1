@@ -25,7 +25,7 @@ function registrarUsuario() {
         localStorage.setItem('usuarios', JSON.stringify(usuarios));
 
         alert('Usuario registrado correctamente');
-        window.location.href = 'inicio.html';
+        window.location.href = 'index.html';
     } else {
         alert('Por favor llena todos los campos');
     }
@@ -36,13 +36,30 @@ document.addEventListener('DOMContentLoaded', function () {
     if (tabla) {
         const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
 
-        usuarios.forEach(usuario => {
+        usuarios.forEach((usuario) => {
             const fila = document.createElement('tr');
             fila.innerHTML = `
-                <td>${usuario.usuario}</td>
+                                <td>${usuario.usuario}</td>
+                <td>${usuario.correo}</td>
                 <td>${usuario.contrasena}</td>
+                <td>
+                    <a href="#editarUsuario" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                    <a href="#eliminarUsuario" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                </td>
             `;
             tabla.appendChild(fila);
         });
     }
 });
+
+
+document.querySelector('#eliminarUsuario form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const indice = document.getElementById('indiceUsuario').value;
+    const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+    usuarios.splice(indice, 1);
+    localStorage.setItem('usuarios', JSON.stringify(usuarios));
+    location.reload();
+});
+
+
