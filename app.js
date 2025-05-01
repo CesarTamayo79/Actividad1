@@ -53,13 +53,18 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-document.querySelector('#eliminarUsuario form').addEventListener('submit', function (e) {
-    e.preventDefault();
-    const indice = document.getElementById('indiceUsuario').value;
-    const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
-    usuarios.splice(indice, 1);
-    localStorage.setItem('usuarios', JSON.stringify(usuarios));
-    location.reload();
+document.addEventListener('DOMContentLoaded', function () {
+    const formEliminar = document.querySelector('#eliminarUsuario form');
+    if (formEliminar) {
+        formEliminar.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const indice = document.getElementById('indiceUsuario').value;
+            const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+            usuarios.splice(indice, 1);
+            localStorage.setItem('usuarios', JSON.stringify(usuarios));
+            location.reload();
+        });
+    }
 });
 
 
